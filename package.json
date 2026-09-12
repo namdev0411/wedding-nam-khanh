@@ -1,0 +1,10 @@
+{
+  "name": "wedding-nam-khanh",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve public",
+    "deploy": "npx vercel deploy public --prod --yes",
+    "deploy:temp": "npx vercel deploy public --temporary --yes",
+    "deploy:netlify": "npx netlify-cli deploy --dir=public --prod --allow-anonymous"
+  }
+}
