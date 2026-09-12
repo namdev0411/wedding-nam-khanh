@@ -9,6 +9,12 @@
   --shadow: 0 20px 60px rgba(61, 47, 42, 0.12);
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Montserrat', system-ui, sans-serif;
+  /* Photo enhancement — sáng da, tông ấm tươi */
+  --photo-filter: brightness(1.12) contrast(1.04) saturate(1.18) hue-rotate(-2deg);
+  --photo-filter-portrait: brightness(1.2) contrast(1.03) saturate(1.22) hue-rotate(-3deg);
+  --photo-filter-hover: brightness(1.16) contrast(1.06) saturate(1.22) hue-rotate(-2deg);
+  --photo-filter-lightbox: brightness(1.15) contrast(1.05) saturate(1.2) hue-rotate(-2deg);
+  --photo-glow: 0 0 48px rgba(255, 220, 195, 0.28);
 }
 
 *, *::before, *::after {
@@ -191,14 +197,22 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, var(--cream) 0%, transparent 30%);
+  background: linear-gradient(
+    to right,
+    rgba(250, 247, 242, 0.42) 0%,
+    rgba(255, 235, 220, 0.05) 22%,
+    transparent 40%
+  );
   z-index: 1;
+  pointer-events: none;
 }
 
 .hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: var(--photo-filter-portrait);
+  transition: filter 0.5s ease;
 }
 
 /* Sections */
@@ -257,7 +271,9 @@ a {
   height: 320px;
   object-fit: cover;
   border-radius: 4px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), var(--photo-glow);
+  filter: var(--photo-filter-portrait);
+  transition: filter 0.4s ease;
 }
 
 .story-text h3 {
@@ -296,10 +312,12 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  filter: var(--photo-filter);
+  transition: filter 0.4s ease, transform 0.5s ease;
 }
 
 .gallery-item:hover img {
+  filter: var(--photo-filter-hover);
   transform: scale(1.05);
 }
 
@@ -366,7 +384,9 @@ a {
   object-fit: cover;
   margin: 0 auto 1rem;
   border: 3px solid var(--white);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), var(--photo-glow);
+  filter: var(--photo-filter-portrait);
+  transition: filter 0.4s ease;
 }
 
 .person h4 {
@@ -429,6 +449,8 @@ a {
   max-width: 90vw;
   object-fit: contain;
   border-radius: 4px;
+  filter: var(--photo-filter-lightbox);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35), var(--photo-glow);
 }
 
 .lightbox-close {
@@ -456,7 +478,12 @@ a {
   }
 
   .hero-image::before {
-    background: linear-gradient(to bottom, transparent 60%, var(--cream) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 235, 220, 0.06) 0%,
+      transparent 55%,
+      rgba(250, 247, 242, 0.85) 100%
+    );
   }
 
   .hero-content {
